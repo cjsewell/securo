@@ -124,6 +124,24 @@ async def test_credit_card_balance_stored_positive_for_debt():
 
 
 @pytest.mark.asyncio
+async def test_loan_maps_to_loan_and_keeps_sign():
+    item = _account_item(
+        _id="acc_loan",
+        type="LOAN",
+        balance={"current": -807647.12, "currency": "NZD"},
+    )
+
+    def handler(request):
+        return httpx.Response(200, json={"success": True, "items": [item]})
+
+    with _patched_client(handler):
+        accounts = await AkahuProvider().get_accounts(CREDS)
+
+    assert accounts[0].type == "loan"
+    assert accounts[0].balance == Decimal("-807647.12")
+
+
+@pytest.mark.asyncio
 async def test_unknown_account_type_falls_back_to_checking():
     item = _account_item(_id="acc_tax", type="TAX", balance={"current": 12.34, "currency": "NZD"})
 

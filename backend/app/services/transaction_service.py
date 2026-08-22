@@ -112,6 +112,7 @@ async def get_transactions(
     txn_type: Optional[str] = None,
     skip_pagination: bool = False,
     exclude_transfers: bool = False,
+    exclude_closed: bool = False,
     account_ids: Optional[list[uuid.UUID]] = None,
     category_ids: Optional[list[uuid.UUID]] = None,
     accounting_mode: Optional[str] = None,
@@ -262,6 +263,12 @@ async def get_transactions(
         )
     if exclude_transfers:
         base_query = base_query.where(Transaction.transfer_pair_id.is_(None))
+    if exclude_closed and not (account_ids or account_id):
+        # Hide closed accounts from the default list. An explicit account
+        # filter wins so closed-account history stays reachable, and
+        # `isnot(True)` keeps manual transactions with no account (the
+        # Account join is an outer join).
+        base_query = base_query.where(Account.is_closed.isnot(True))
     if user_pnl_only:
         base_query = base_query.where(Account.is_closed == False, counts_as_user_pnl())
     if exclude_ignored:

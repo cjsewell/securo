@@ -70,6 +70,7 @@ _TYPE_MAP = {
     "CREDITCARD": "credit_card",
     "KIWISAVER": "investment",
     "INVESTMENT": "investment",
+    "LOAN": "loan",
     "WALLET": "wallet",
 }
 

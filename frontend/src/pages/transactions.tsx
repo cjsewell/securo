@@ -385,6 +385,9 @@ export default function TransactionsPage() {
         page,
         limit,
         account_ids: effectiveAccountIds.length > 0 ? effectiveAccountIds : undefined,
+        // Hide closed accounts in the default list. An account filter overrides
+        // this behaviour so users can still view a closed account's history.
+        exclude_closed: true,
         category_ids: filterCategoryIds.length > 0 ? filterCategoryIds : undefined,
         payee_id: filterPayee || undefined,
         group_id: filterGroupId || undefined,

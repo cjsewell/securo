@@ -457,6 +457,7 @@ export const transactions = {
     limit?: number
     include_opening_balance?: boolean
     exclude_transfers?: boolean
+    exclude_closed?: boolean
     user_pnl_only?: boolean
     exclude_ignored?: boolean
     tags?: string[]

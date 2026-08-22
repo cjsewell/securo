@@ -47,6 +47,7 @@ const ACCOUNT_TYPE_OPTIONS = [
   { value: 'savings', labelKey: 'accounts.typeSavings' },
   { value: 'credit_card', labelKey: 'accounts.typeCreditCard' },
   { value: 'investment', labelKey: 'accounts.typeInvestment' },
+  { value: 'loan', labelKey: 'accounts.typeLoan' },
   { value: 'wallet', labelKey: 'accounts.typeWallet' },
 ] as const
 
